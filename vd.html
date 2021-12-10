@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tính tổng tiền lương</title>
+
+    <script src="angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h4> năm kinh nghiệm</h4>
+       <input type="number" ng-model="exp" id="exp" ng-keypress="total">
+       <h4>nhập số lương</h4>
+        <input type="number" ng-model="slry" id="slry">
+        <input type="button" value="calulate"  ng-click="calc()">
+        <h4>số tiền thưởng: {{bonus | currency: 'VND:'}}</h4>
+        <h4>số tiền thuế: {{tax | currency: 'VND:'}}</h4>
+        <h4>số tiền thực nhận: {{total | currency: 'VND:'}}</h4>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.exp = 0;
+            $scope.slry = 0;
+            $scope.month = 0;
+            $scope.tax = 0;
+            $scope.bonus = 0;
+            $scope.total ="";
+            $scope.calc = function (){
+                if ($scope.exp <5){
+                $scope.month = 3;
+            }
+            else if( $scope.exp >= 5 && $scope.exp <=10){
+                    $scope.month = 6;
+            }
+            else if ( $scope.exp <10){
+                    $scope.month = 12;
+                }
+            $scope.bonus = $scope.slry * $scope.month;
+            $scope.tax = $scope.bonus * 0.1;
+            $scope.total = $scope.bonus - $scope.tax;
+            }
+        });
+    </script>
+</body>
+</html>
